@@ -1,4 +1,6 @@
 const inquirer = require("inquirer");
+const { portValidator } = require("port-validator");
+const debug = require("debug")("things:getUserChoices");
 
 const getUserChoices = () =>
   new Promise((resolve, reject) => {
@@ -7,14 +9,22 @@ const getUserChoices = () =>
         {
           name: "port",
           message: "Define a port number to start server",
-          type: "integer",
+          type: "input",
           default: 4000,
+          validate: async (port) => {
+            debug(port, typeof port);
+            if (!portValidator(port).validate()) {
+              return "Invalid port!";
+            }
+            return true;
+          },
         },
         {
           name: "dbOption",
           type: "list",
           choices: ["Development", "Production"],
         },
+
         {
           name: "allowEdit",
           message: "Allow clients to edit Database",
