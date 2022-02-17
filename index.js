@@ -1,27 +1,15 @@
-const inquirer = require("inquirer");
+require("dotenv").config();
+const debug = require("debug")("things:root");
+const chalk = require("chalk");
 
-inquirer
-  .prompt([
-    {
-      name: "port",
-      message: "Define a port number to start server",
-      type: "integer",
+const getUserChoices = require("./utils/getUserChoices");
 
-      default: 4000,
-    },
-    {
-      name: "db_option",
-      type: "list",
-      choices: ["Development", "Production"],
-    },
-    {
-      name: "allow_edit",
-      message: "Allow clients to edit Database",
-      type: "confirm",
-    },
-  ])
-  .then(function (answer) {
-    console.log(answer.port);
-    console.log(answer.db_option);
-    console.log(answer.allow_edit);
-  });
+(async () => {
+  const { port, dbOption, allowEdit } = await getUserChoices();
+
+  debug(
+    chalk.greenBright(
+      `Port: ${port}, Chosen database: ${dbOption}, Allow editing: ${allowEdit}`
+    )
+  );
+})();
