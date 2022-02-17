@@ -12,7 +12,6 @@ const getUserChoices = () =>
           type: "input",
           default: 4000,
           validate: async (port) => {
-            debug(port, typeof port);
             if (!portValidator(port).validate()) {
               return "Invalid port!";
             }
@@ -21,6 +20,7 @@ const getUserChoices = () =>
         },
         {
           name: "dbOption",
+          message: "Choose the database you want to use:",
           type: "list",
           choices: ["Development", "Production"],
         },
