@@ -16,11 +16,12 @@
     "eslint-plugin-import": "^2.25.4"
   },
   "dependencies": {
-    "inquirer": "^8.2.0",
     "chalk": "^4.1.2",
     "debug": "^4.3.3",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "mongoose": "^6.2.2"
+    "inquirer": "^8.2.0",
+    "mongoose": "^6.2.2",
+    "port-validator": "^0.1.0-beta1"
   }
 }

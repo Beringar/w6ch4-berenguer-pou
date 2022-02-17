@@ -9,7 +9,7 @@ const getUserChoices = require("./utils/getUserChoices");
 
   debug(
     chalk.greenBright(
-      `Port: ${port}, Chosen database: ${dbOption}, Allow editing: ${allowEdit}`
+      `Port: ${port} Chosen database: ${dbOption}, Allow editing: ${allowEdit}`
     )
   );
 })();
