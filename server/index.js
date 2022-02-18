@@ -29,16 +29,18 @@ const startServer = (port, allowEdit) => {
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use((req, res, next) => {
-  if (!isEditingAllowed && req.method !== "GET") {
-    res.status(403);
-    res.json({ error: "Database is in read-only mode!" });
-    return;
-  }
-  next();
-});
-
-app.use("/things", thingsRouter);
+app.use(
+  "/things",
+  (req, res, next) => {
+    if (!isEditingAllowed && req.method !== "GET") {
+      res.status(403);
+      res.json({ error: "Database is in read-only mode!" });
+      return;
+    }
+    next();
+  },
+  thingsRouter
+);
 
 app.use(notFoundError);
 app.use(generalError);
