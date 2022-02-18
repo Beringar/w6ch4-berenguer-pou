@@ -7,8 +7,11 @@ const thingsRouter = require("./routers/thingsRouter");
 
 const app = express();
 
-const startServer = (port) =>
-  new Promise((resolve, reject) => {
+let isEditingAllowed;
+
+const startServer = (port, allowEdit) => {
+  isEditingAllowed = allowEdit;
+  return new Promise((resolve, reject) => {
     const server = app.listen(port, () => {
       debug(chalk.greenBright(`Server listening on http://localhost:${port}`));
       resolve();
@@ -21,9 +24,19 @@ const startServer = (port) =>
       reject(new Error(errorMessage));
     });
   });
+};
 
 app.use(morgan("dev"));
 app.use(express.json());
+
+app.use((req, res, next) => {
+  if (!isEditingAllowed && req.method !== "GET") {
+    debug(chalk.redBright("Editing is not allowed!"));
+    res.json({ error: "Editing is not allowed" });
+    return;
+  }
+  next();
+});
 
 app.use("/things", thingsRouter);
 
