@@ -31,8 +31,8 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   if (!isEditingAllowed && req.method !== "GET") {
-    debug(chalk.redBright("Editing is not allowed!"));
-    res.json({ error: "Editing is not allowed" });
+    res.status(403);
+    res.json({ error: "Database is in read-only mode!" });
     return;
   }
   next();
