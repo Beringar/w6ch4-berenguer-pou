@@ -3,10 +3,24 @@ const Thing = require("../../db/models/Thing");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  const things = await Thing.find();
-  res.status(200);
-  res.json({ things });
+router.get("/", async (req, res, next) => {
+  try {
+    const things = await Thing.find();
+    res.status(200);
+    res.json({ things });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/:id", async (req, res, next) => {
+  try {
+    const thingId = req.params.id;
+    const thing = await Thing.findById(thingId);
+    res.json(thing);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
