@@ -1,6 +1,5 @@
 const inquirer = require("inquirer");
 const { portValidator } = require("port-validator");
-const debug = require("debug")("things:getUserChoices");
 
 const getUserChoices = () =>
   new Promise((resolve, reject) => {
@@ -37,7 +36,8 @@ const getUserChoices = () =>
           dbOption,
           allowEdit,
         });
-      });
+      })
+      .catch((error) => reject(new Error(error)));
   });
 
 module.exports = getUserChoices;
