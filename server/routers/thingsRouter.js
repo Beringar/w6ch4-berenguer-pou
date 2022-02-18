@@ -1,9 +1,12 @@
 const express = require("express");
+const Thing = require("../../db/models/Thing");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  res.json({ things: "plenty of things , boy!" });
+  const things = await Thing.find();
+  res.status(200);
+  res.json({ things });
 });
 
 module.exports = router;
