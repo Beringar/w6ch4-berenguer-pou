@@ -34,4 +34,13 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
+router.post("/", async (req, res, next) => {
+  try {
+    const thingToPost = await Thing.create(req.body);
+    res.json(thingToPost);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
