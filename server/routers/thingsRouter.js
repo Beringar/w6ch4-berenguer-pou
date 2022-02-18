@@ -43,4 +43,13 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.put("/", async (req, res, next) => {
+  try {
+    await Thing.replaceOne({ _id: req.body._id }, { ...req.body });
+    res.json({});
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
