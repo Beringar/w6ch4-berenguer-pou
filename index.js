@@ -4,6 +4,7 @@ const chalk = require("chalk");
 
 const getUserChoices = require("./utils/getUserChoices");
 const connectToMongoDatabase = require("./db");
+const startServer = require("./server");
 
 (async () => {
   try {
@@ -18,6 +19,7 @@ const connectToMongoDatabase = require("./db");
         ? process.env.MONGO_PROD
         : process.env.MONGO_DEV;
     connectToMongoDatabase(mongoConnectionString, dbOption);
+    startServer(port);
   } catch (error) {
     debug(chalk.redBright(error));
   }
