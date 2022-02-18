@@ -18,7 +18,7 @@ const startServer = require("./server");
       dbOption === "Production"
         ? process.env.MONGO_PROD
         : process.env.MONGO_DEV;
-    connectToMongoDatabase(mongoConnectionString);
+    connectToMongoDatabase(mongoConnectionString, dbOption);
     startServer(port, allowEdit);
   } catch (error) {
     debug(chalk.redBright(error));
